@@ -7,6 +7,7 @@ STATES = {
     "menu": 2,
     "settings": 3
 }
+
 LANGUAGE_CODE = {
     1: "uz",
     2: "ru"

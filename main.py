@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-
+from register import check
 # Enable logging
 import logging
 logging.basicConfig(
@@ -13,7 +13,7 @@ from config import BOT_TOKEN  # telegram bot token
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text(f'Salom {update.effective_user.first_name}')
+    await check(update,context)
 
 
 app = ApplicationBuilder().token(BOT_TOKEN).build()
