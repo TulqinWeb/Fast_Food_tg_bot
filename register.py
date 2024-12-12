@@ -65,6 +65,7 @@ async def check(update, context):
         context.user_data['state'] = globals.STATES['reg']
 
     else:
+        pass
 
 
 
