@@ -16,7 +16,7 @@ async def message_handler(update, context):
     db_user = db.get_user_by_chat_id(user.id)
     if state == 0:
        print(state)
-       await check(update=update, context=context)
+       await check(update, context)
 
     elif state == 1:
         if not db_user['lang_id']:
@@ -26,7 +26,7 @@ async def message_handler(update, context):
 
             elif message == globals.BTN_LANG_RU:
                 db.update_user_data(user.id, 'lang_id', 2)
-                await check(update, check)
+                await check(update, context)
 
             else:
                 await update.message.reply_text(text=globals.TEXT_LANG_WARNING)
