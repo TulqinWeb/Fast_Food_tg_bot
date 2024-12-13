@@ -6,11 +6,11 @@ from config import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
 class Database:
     def __init__(self):
         self.conn = psycopg2.connect(
-            db_name=DB_NAME,
-            db_user=DB_USER,
-            db_password=DB_PASSWORD,
-            db_host=DB_HOST,
-            db_port=DB_PORT
+            dbname=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            host=DB_HOST,
+            port=DB_PORT
         )
         self.cursor = self.conn.cursor()
 
@@ -56,7 +56,7 @@ class Database:
              """)
 
         self.cursor.execute("""
-            CREATE TABLE order_items (
+            CREATE TABLE IF NOT EXISTS order_items (
                 id SERIAL PRIMARY KEY,
                 order_id INT REFERENCES orders(id),  
                 product_id INT REFERENCES products(id), 
@@ -104,6 +104,6 @@ def dict_fetchall(cursor):
 def dict_fetchone(cursor):
     row = cursor.fetchone()
     if row is None:
-        return False
+        return None
     columns = [col[0] for col in cursor.description]
     return dict(zip(columns, row))

@@ -10,11 +10,12 @@ db = Database()
 
 @check_data_decorator
 async def message_handler(update, context):
-    message = update.message.from_user
+    message = update.message.text
     user = update.message.from_user
-    state = context.user_date['state', 0]
+    state = context.user_data.get('state', 0)
     db_user = db.get_user_by_chat_id(user.id)
     if state == 0:
+       print(state)
        await check(update=update, context=context)
 
     elif state == 1:
@@ -37,7 +38,7 @@ async def message_handler(update, context):
         elif not db_user['last_name']:
             db.update_user_data(user.id, 'last_name', message)
             button = [
-                [KeyboardButton(text=globals.BTN_SEND_CONTACT[db_user('lang_id')], request_contact=True)]
+                [KeyboardButton(text=globals.BTN_SEND_CONTACT[db_user['lang_id']], request_contact=True)]
             ]
             await check(update, context)
 

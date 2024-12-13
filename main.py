@@ -1,5 +1,7 @@
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
+
+from message_handler import message_handler
 from register import check
 # Enable logging
 import logging
@@ -16,8 +18,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await check(update,context)
 
 
-app = ApplicationBuilder().token(BOT_TOKEN).build()
+def main():
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
 
-app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT, message_handler))
 
-app.run_polling()
+    app.run_polling()
+
+if __name__ == '__main__':
+    main()
