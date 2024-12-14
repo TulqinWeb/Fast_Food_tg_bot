@@ -1,7 +1,4 @@
-from telegram import KeyboardButton
-
-from check_data_decorator import check_data_decorator
-from register import check
+from register import check, check_data_decorator
 from fastfood_db import Database
 import globals
 
@@ -37,20 +34,11 @@ async def message_handler(update, context):
 
         elif not db_user['last_name']:
             db.update_user_data(user.id, 'last_name', message)
-            button = [
-                [KeyboardButton(text=globals.BTN_SEND_CONTACT[db_user['lang_id']], request_contact=True)]
-            ]
             await check(update, context)
 
         elif not db_user['phone_number']:
             db.update_user_data(user.id, 'phone_number', message)
-
-        else:
             await check(update, context)
 
-
-
-
-
-
-
+        else:
+            pass
