@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
 from message_handler import message_handler
-from register import check
+from register import start_conv
 # Enable logging
 import logging
 logging.basicConfig(
@@ -15,7 +15,7 @@ from config import BOT_TOKEN  # telegram bot token
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await check(update,context)
+    await start_conv(update,context)
 
 
 def main():
