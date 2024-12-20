@@ -22,14 +22,15 @@ class Database:
                 phone_number VARCHAR(20),                    
                 chat_id BIGINT NOT NULL, 
                 lang_id INTEGER,                                                      
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+                );
             """)
 
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS categories (
                 id SERIAL PRIMARY KEY,        
                 name VARCHAR(50) NOT NULL,     
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
             );
         """)
 
@@ -40,7 +41,7 @@ class Database:
                 price DECIMAL(10, 2) NOT NULL, 
                 image_url TEXT,
                 category_id INTEGER NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE
             );
         """)
@@ -51,7 +52,7 @@ class Database:
                 user_id INT REFERENCES users(id),  
                 total_price DECIMAL(10, 2),        
                 status VARCHAR(50) DEFAULT 'pending',
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
              """)
 
@@ -67,7 +68,7 @@ class Database:
     def create_user(self, first_name, last_name, phone_number, lang_id, chat_id):
         self.cursor.execute("""
             INSERT INTO users (first_name, last_name, phone_number,lang_id, chat_id) 
-            VALUES ( %s,%s,%s,%s,%s)""", (first_name, last_name, phone_number, lang_id, chat_id))
+            VALUES ( %s,%s,%s,%s,%s)""", (first_name, last_name, phone_number, lang_id, chat_id,))
         self.conn.commit()
 
     def update_user_data(self, chat_id, key, value):
