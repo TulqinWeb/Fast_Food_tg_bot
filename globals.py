@@ -2,10 +2,9 @@ WELCOME_TEXT = "Xush kelibsiz / Добро пожаловать!"
 CHOOSE_LANG = "Tilni tanlang / Выберите язык!"
 BTN_LANG_UZ = "Uzbek tili"
 BTN_LANG_RU = "Русский язык"
-STATES = {
-    "reg": 1,
-    "menu": 2,
-    "settings": 3
+FALLBACK = {
+    1: "Jarayon bekor qilindi. Qayta boshlash uchun /start buyrug'idan foydalaning.",
+    2: "Процесс был отменён. Для перезапуска используйте команду /start."
 }
 
 LANGUAGE_CODE = {
@@ -34,34 +33,33 @@ TEXT_MAIN_MENU = {
     2: "🏠 Главное меню"
 }
 BTN_ORDER = {
-    1:"🛒 Buyurtma qilish",
-    2:"🛒 Заказать"
+    1: "🛒 Buyurtma qilish",
+    2: "🛒 Заказать"
 }
 TEXT_ORDER = {
     1: "Kategoriylardan birini tanlang!",
     2: "Выбери одну из категорий!"
 }
 BTN_MY_ORDERS = {
-    1:"🛍 Buyurtmalarim",
-    2:"🛍 Мои заказы"
+    1: "🛍 Buyurtmalarim",
+    2: "🛍 Мои заказы"
 }
 BTN_ABOUT_US = {
-    1:"👨‍👩‍👦 Biz haqimizda",
-    2:"👨‍👩‍👦 O нас"
+    1: "👨‍👩‍👦 Biz haqimizda",
+    2: "👨‍👩‍👦 O нас"
 }
 BTN_KORZINKA = {
     1: "🛍 Xarid qilish",
     21: "🛍 Покупка товаров",
 }
 BTN_COMMENTS = {
-    1:"✍️Fikr bildirish",
-    2:"✍️комментарий"
+    1: "✍️Fikr bildirish",
+    2: "✍️комментарий"
 }
 BTN_SETTINGS = {
-    1:"⚙️Sozlamalar",
-    2:"⚙️Настройки"
+    1: "⚙️Sozlamalar",
+    2: "⚙️Настройки"
 }
-
 
 TEXT_PRODUCT_PRICE = {
     1: "Narx:",
@@ -71,10 +69,6 @@ TEXT_PRODUCT_DESC = {
     1: "Tarkibi:",
     2: "Состав:"
 }
-
-
-
-
 
 AT_KORZINKA = {
     1: "Savatchada",
@@ -98,9 +92,9 @@ SUM = {
 
 ABOUT_COMPANY = {
     1: "Biz <b>F-18 backend dasturchilar guruhi</b>miz! "
-         "\n\nBirgalikda biznesingizni rivojlantiramiz va uni "
-         "zamonaviy uslubda ommaga taqdim qilamiz!\n\n"
-         "<b>BIZ SIZ HAQINGIZDA QAYG'URAMIZ!!!</b>",
+       "\n\nBirgalikda biznesingizni rivojlantiramiz va uni "
+       "zamonaviy uslubda ommaga taqdim qilamiz!\n\n"
+       "<b>BIZ SIZ HAQINGIZDA QAYG'URAMIZ!!!</b>",
     2: "Мы <b>F-18 backend dasturchilar guruhi</b>!"
        "\n\nМы будем развивать ваш бизнес вместе"
        "и представляем публике в современном стиле!\n\n"

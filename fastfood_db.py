@@ -64,10 +64,10 @@ class Database:
                 );
              """)
 
-    def create_user(self,first_name, last_name, phone_number, lang_id, chat_id):
+    def create_user(self, first_name, last_name, phone_number, lang_id, chat_id):
         self.cursor.execute("""
             INSERT INTO users (first_name, last_name, phone_number,lang_id, chat_id) 
-            VALUES ( %s,%s,%s,%s,%s, )""", (first_name, last_name,phone_number,lang_id,chat_id,))
+            VALUES ( %s,%s,%s,%s,%s)""", (first_name, last_name, phone_number, lang_id, chat_id))
         self.conn.commit()
 
     def update_user_data(self, chat_id, key, value):
