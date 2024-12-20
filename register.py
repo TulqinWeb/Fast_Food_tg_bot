@@ -33,7 +33,6 @@ async def start_conv(update, context):
 
 async def choose_lang(update, context):
     message = update.message.text
-    print(message)
     logging.info(f"Foydalanuvhi tanlovi {message}")
     if message == globals.BTN_LANG_UZ:
         lang_id = 1
@@ -61,6 +60,16 @@ async def choose_lang(update, context):
 async def enter_first_name(update, context):
     first_name = update.message.text
     lang_id = context.user_data["lang_id"]
+    # Validation
+    if first_name.startswith("/"):
+        if first_name == "/cancel":
+            await update.message.reply_text(text=globals.FALLBACK[lang_id])
+            return ConversationHandler.END
+        else:
+            await update.message.reply_text(text=globals.TEXT_ENTER_FIRST_NAME[lang_id])
+            return FIRST_NAME
+
+    logging.info(f"Foydalanuvchi ismi {first_name}")
     context.user_data["first_name"] = first_name
     await update.message.reply_text(
         text=globals.TEXT_ENTER_LAST_NAME[lang_id]
@@ -71,6 +80,16 @@ async def enter_first_name(update, context):
 async def enter_last_name(update, context):
     last_name = update.message.text
     lang_id = context.user_data["lang_id"]
+    # Validation
+    if last_name.startswith("/"):
+        if last_name == "/cancel":
+            await update.message.reply_text(text=globals.FALLBACK[lang_id])
+            return ConversationHandler.END
+        else:
+            await update.message.reply_text(text=globals.TEXT_ENTER_LAST_NAME[lang_id])
+            return LAST_NAME
+
+    logging.info(f"Foydalanuvchi familiyasi {last_name}")
     context.user_data["last_name"] = last_name
     button = [
         [KeyboardButton(
@@ -87,10 +106,21 @@ async def enter_last_name(update, context):
 
 
 async def enter_contact(update, context):
-    contact = update.message.contact
     lang_id = context.user_data["lang_id"]
+
+    if update.message.text and update.message.text.startswith("/"):
+        message = update.message.text
+        if message == "/cancel":
+            await update.message.reply_text(text=globals.FALLBACK[lang_id])
+            return ConversationHandler.END
+        else:
+            await update.message.reply_text(text=globals.TEXT_ENTER_CONTACT[lang_id])
+            return CONTACT
+
+    contact = update.message.contact
     if contact and contact.phone_number:
         phone_number = contact.phone_number
+        logging.info(f"Foydalanuvchi telefon raqami {phone_number}")
         context.user_data["phone_number"] = phone_number
 
         await update.message.reply_text(

@@ -1,7 +1,7 @@
 WELCOME_TEXT = "Xush kelibsiz / Добро пожаловать!"
 CHOOSE_LANG = "Tilni tanlang / Выберите язык!"
-BTN_LANG_UZ = "Uzbek tili"
-BTN_LANG_RU = "Русский язык"
+BTN_LANG_UZ = "Uzbek tili 🇺🇿"
+BTN_LANG_RU = "Русский язык 🇷🇺"
 FALLBACK = {
     1: "Jarayon bekor qilindi. Qayta boshlash uchun /start buyrug'idan foydalaning.",
     2: "Процесс был отменён. Для перезапуска используйте команду /start."
