@@ -1,5 +1,5 @@
-WELCOME_TEXT = "Xush kelibsiz / Добро пожаловать!"
-CHOOSE_LANG = "Tilni tanlang / Выберите язык!"
+WELCOME_TEXT = "Xush kelibsiz 🇺🇿/ Добро пожаловать 🇷🇺"
+CHOOSE_LANG = "Tilni tanlang 🇺🇿/ Выберите язык 🇷🇺"
 BTN_LANG_UZ = "Uzbek tili 🇺🇿"
 BTN_LANG_RU = "Русский язык 🇷🇺"
 FALLBACK = {
@@ -28,6 +28,12 @@ TEXT_ENTER_CONTACT = {
     1: "Iltimos telefon raqamingizni yuboring yoki <<Yuborish>> tugmasini bosing!",
     2: "Отправьте свой номер телефона или нажмите кнопку <<Отправить>>!"
 }
+
+TEXT_ENTER_CONTACT_WARNING = {
+    1: "Iltimos, pastdagi tugmadan foydalanib telefon raqamingizni yuboring.",
+    2: "Пожалуйста, используйте кнопку ниже, чтобы отправить свой номер телефона."
+}
+
 TEXT_MAIN_MENU = {
     1: "🏠 Asosiy menyu",
     2: "🏠 Главное меню"

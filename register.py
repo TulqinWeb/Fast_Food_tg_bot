@@ -68,6 +68,9 @@ async def enter_first_name(update, context):
         else:
             await update.message.reply_text(text=globals.TEXT_ENTER_FIRST_NAME[lang_id])
             return FIRST_NAME
+    elif not first_name.isalpha():
+        await update.message.reply_text(text=globals.TEXT_ENTER_FIRST_NAME[lang_id])
+        return FIRST_NAME
 
     logging.info(f"Foydalanuvchi ismi {first_name}")
     context.user_data["first_name"] = first_name
@@ -88,6 +91,10 @@ async def enter_last_name(update, context):
         else:
             await update.message.reply_text(text=globals.TEXT_ENTER_LAST_NAME[lang_id])
             return LAST_NAME
+    elif not last_name.isalpha():
+        await update.message.reply_text(text=globals.TEXT_ENTER_LAST_NAME[lang_id])
+        return LAST_NAME
+
 
     logging.info(f"Foydalanuvchi familiyasi {last_name}")
     context.user_data["last_name"] = last_name
@@ -108,13 +115,17 @@ async def enter_last_name(update, context):
 async def enter_contact(update, context):
     lang_id = context.user_data["lang_id"]
 
-    if update.message.text and update.message.text.startswith("/"):
-        message = update.message.text
-        if message == "/cancel":
-            await update.message.reply_text(text=globals.FALLBACK[lang_id])
-            return ConversationHandler.END
+    if update.message.text:
+        if update.message.text.startswith("/"):
+            message = update.message.text
+            if message == "/cancel":
+                await update.message.reply_text(text=globals.FALLBACK[lang_id])
+                return ConversationHandler.END
+            else:
+                await update.message.reply_text(text=globals.TEXT_ENTER_CONTACT_WARNING[lang_id])
+                return CONTACT
         else:
-            await update.message.reply_text(text=globals.TEXT_ENTER_CONTACT[lang_id])
+            await update.message.reply_text(text=globals.TEXT_ENTER_CONTACT_WARNING[lang_id])
             return CONTACT
 
     contact = update.message.contact
@@ -140,7 +151,7 @@ async def enter_contact(update, context):
 
     else:
         await update.message.reply_text(
-            text=globals.TEXT_ENTER_CONTACT[lang_id]
+            text=globals.TEXT_ENTER_CONTACT_WARNING[lang_id]
         )
         return CONTACT
 
