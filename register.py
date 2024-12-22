@@ -1,6 +1,7 @@
 from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import ConversationHandler
 import globals
+
 from fastfood_db import Database
 import logging
 
@@ -14,8 +15,7 @@ async def start_conv(update, context):
     user = update.message.from_user
     db_user = db.get_user_by_chat_id(user.id)
     if db_user:
-        lang_id = db_user["lang_id"]
-        await update.message.reply_text(text=globals.TEXT_MAIN_MENU[lang_id])
+        await update.message.reply_text(text=globals.TEXT_MAIN_MENU[db_user["lang_id"]])
         return ConversationHandler.END
     else:
         buttons = [
@@ -134,11 +134,6 @@ async def enter_contact(update, context):
         logging.info(f"Foydalanuvchi telefon raqami {phone_number}")
         context.user_data["phone_number"] = phone_number
 
-        await update.message.reply_text(
-            text=globals.TEXT_MAIN_MENU[lang_id],
-            reply_markup=ReplyKeyboardRemove()
-        )
-
         # Save data to Database
         user_data = context.user_data
         first_name = user_data.get("first_name")
@@ -147,6 +142,8 @@ async def enter_contact(update, context):
         chat_id = update.message.from_user.id
 
         db.create_user(first_name, last_name, phone_number, lang_id, chat_id)
+
+        await update.message.reply_text(text=globals.TEXT_MAIN_MENU[user_data["lang_id"]])
         return ConversationHandler.END
 
     else:

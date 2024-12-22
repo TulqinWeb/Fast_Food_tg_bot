@@ -1,9 +1,14 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler
 
-# from message_handler import message_handler
+from message_handler import message_handler
+
 from register import start_conv, choose_lang, enter_first_name, enter_last_name, CHOOSE_LANG, FIRST_NAME, LAST_NAME, \
     CONTACT, enter_contact, fallbacks
+
+from fastfood_db import Database
+db = Database()
+
 # Enable logging
 import logging
 
@@ -37,7 +42,7 @@ def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(cov_handler())
-    # app.add_handler(MessageHandler(filters.TEXT, message_handler))
+    app.add_handler(MessageHandler(filters.TEXT, message_handler))
 
     app.run_polling()
 
