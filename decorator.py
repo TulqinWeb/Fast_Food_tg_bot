@@ -51,8 +51,7 @@ async def dec_enter_contact(update, context):
     db_user = db.get_user_by_chat_id(update.message.from_user.id)
     button = [
         [KeyboardButton(
-            text=globals.BTN_SEND_CONTACT[db_user["lang_id"]],
-            request_contact=True
+            text=globals.BTN_SEND_CONTACT[db_user["lang_id"]], request_contact=True
         )]
     ]
     reply_markup = ReplyKeyboardMarkup(button, resize_keyboard=True, one_time_keyboard=True)

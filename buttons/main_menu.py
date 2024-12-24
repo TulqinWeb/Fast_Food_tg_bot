@@ -1,12 +1,11 @@
 from telegram import KeyboardButton, ReplyKeyboardMarkup
 import globals
-from decorator import check_user_data
 from fastfood_db import Database
 
 db = Database()
 
-@check_user_data()
-async def main_menu(update, context, chat_id, lang_id, message_id=None):
+
+async def main_menu(context,chat_id,lang_id,message_id=None):
     buttons = [
         [KeyboardButton(text=globals.BTN_ORDER[lang_id])],
         [KeyboardButton(text=globals.BTN_MY_ORDERS[lang_id]), KeyboardButton(text=globals.BTN_ABOUT_US[lang_id])],

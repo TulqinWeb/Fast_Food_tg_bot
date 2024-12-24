@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler
 
 from buttons import main_menu
+from decorator import check_user_data
 from message_handler import message_handler
 
 from register import start_conv, choose_lang, enter_first_name, enter_last_name, CHOOSE_LANG, FIRST_NAME, LAST_NAME, \
@@ -29,7 +30,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not db_user:
         await start_conv(update, context)
     else:
-        await main_menu(update=update,context=context, chat_id=user.id, lang_id=db_user["lang_id"], message_id=None)
+        await main_menu(context=context, chat_id=user.id, lang_id=db_user["lang_id"], message_id=None)
 
 
 def cov_handler() -> ConversationHandler:
@@ -51,6 +52,7 @@ def main():
     app.add_handler(CommandHandler('start', start))
     app.add_handler(cov_handler())
     app.add_handler(MessageHandler(filters.TEXT, message_handler))
+    app.add_handler(MessageHandler(filters.CONTACT, message_handler))
 
     app.run_polling()
 

@@ -1,24 +1,26 @@
 from buttons import main_menu
+from decorator import check_user_data
 from fastfood_db import Database
 import globals
 
 db = Database()
 
-
+@check_user_data()
 async def message_handler(update, context):
     missing_field = context.user_data.get("missing_field")
+    print(missing_field)
     user = update.message.from_user
     db_user = db.get_user_by_chat_id(user.id)
 
     if missing_field == "first_name":
         db.update_user_data(user.id, "first_name", update.message.text)
         context.user_data.pop("missing_field")
-        return await main_menu(update=update, context=context, chat_id=user.id, lang_id=db_user["lang_id"])
+        return await main_menu(context=context, chat_id=user.id, lang_id=db_user["lang_id"])
 
     if missing_field == "last_name":
         db.update_user_data(user.id, "last_name", update.message.text)
         context.user_data.pop("missing_field")
-        return await main_menu(update=update, context=context, chat_id=user.id, lang_id=db_user["lang_id"])
+        return await main_menu(context=context, chat_id=user.id, lang_id=db_user["lang_id"])
 
     if missing_field == "phone_number":
         contact = update.message.contact
@@ -26,7 +28,7 @@ async def message_handler(update, context):
             print(contact.phone_number)
             db.update_user_data(user.id, "phone_number", contact.phone_number)
             context.user_data.pop("missing_field")
-            return await main_menu(update=update, context=context, chat_id=user.id, lang_id=db_user["lang_id"])
+            return await main_menu(context=context, chat_id=user.id, lang_id=db_user["lang_id"])
 
         # Agar kontakt noto'g'ri bo'lsa
         db_user = db.get_user_by_chat_id(user.id)
