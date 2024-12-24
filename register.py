@@ -1,6 +1,7 @@
 from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import ConversationHandler
 import globals
+from buttons import main_menu
 
 from fastfood_db import Database
 import logging
@@ -95,7 +96,6 @@ async def enter_last_name(update, context):
         await update.message.reply_text(text=globals.TEXT_ENTER_LAST_NAME[lang_id])
         return LAST_NAME
 
-
     logging.info(f"Foydalanuvchi familiyasi {last_name}")
     context.user_data["last_name"] = last_name
     button = [
@@ -143,7 +143,7 @@ async def enter_contact(update, context):
 
         db.create_user(first_name, last_name, phone_number, lang_id, chat_id)
 
-        await update.message.reply_text(text=globals.TEXT_MAIN_MENU[user_data["lang_id"]])
+        await main_menu(context=context,chat_id=chat_id,lang_id=user_data["lang_id"], message_id=None)
         return ConversationHandler.END
 
     else:
