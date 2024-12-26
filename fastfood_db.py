@@ -29,9 +29,16 @@ class Database:
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS categories (
                 id SERIAL PRIMARY KEY,        
-                name VARCHAR(50) NOT NULL,     
-                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+                name_uz VARCHAR(50) NOT NULL,     
+                name_ru VARCHAR(50) NOT NULL,  
+                lang_id INTEGER NOT NULL,   
+                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (lang_id) REFERENCES users(lang_id)
             );
+        """)
+        self.cursor.execute("""
+            ALTER TABLE categories
+            ADD COLUMN lang_id INTEGER;
         """)
 
         self.cursor.execute("""
@@ -86,6 +93,13 @@ class Database:
         self.cursor.execute("""
            INSERT INTO categories (name) VALUES (%s)""", (name,))
         self.conn.commit()
+
+    def get_categories(self):
+        self.cursor.execute("""
+            SELECT * from categories
+            """)
+        all_categories = dict_fetchall(self.cursor)
+        return all_categories
 
     def create_product(self, name, price, image_url, category_id):
         self.cursor.execute("""

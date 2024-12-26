@@ -12,7 +12,7 @@ async def main_menu(context,chat_id,lang_id,message_id=None):
         [KeyboardButton(text=globals.BTN_COMMENTS[lang_id]), KeyboardButton(text=globals.BTN_SETTINGS[lang_id])]
     ]
 
-    reply_markup = ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
+    reply_markup = ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True, one_time_keyboard=True)
     if message_id:
         await context.bot.edit_message_text(
             chat_id=chat_id,

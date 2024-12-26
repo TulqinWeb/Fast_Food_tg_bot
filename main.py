@@ -35,7 +35,7 @@ def cov_handler() -> ConversationHandler:
             CHOOSE_LANG: [MessageHandler(filters.TEXT, choose_lang)],
             FIRST_NAME: [MessageHandler(filters.TEXT, enter_first_name)],
             LAST_NAME: [MessageHandler(filters.TEXT, enter_last_name)],
-            CONTACT: [MessageHandler(filters.TEXT & ~filters.CONTACT, enter_contact)]
+            CONTACT: [MessageHandler(filters.TEXT | filters.CONTACT, enter_contact)]
         },
         fallbacks=[CommandHandler('cancel', fallbacks)]
     )
