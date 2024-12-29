@@ -13,4 +13,4 @@ async def message_handler(update, context):
     if text == globals.BTN_ORDER[db_user["lang_id"]]:
         categories = db.get_categories()
         lang_id = db_user["lang_id"]
-        await all_categories(context=context, chat_id=user.id, lang_id=lang_id, categories=categories, message_id=None)
+        await all_categories(context=context, chat_id=user.id, lang_id=lang_id, categories=categories,message_id=None)

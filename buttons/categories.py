@@ -8,9 +8,11 @@ db = Database()
 async def all_categories(context, chat_id, lang_id, categories, message_id):
     button = []
     for category in categories:
+        category_name = category['name_uz'] if lang_id == 1 else category['name_ru']
+
         button.append(
             [InlineKeyboardButton(
-                text=f"{category['name']}",
+                text= category_name,
                 callback_data="category_product"
             )]
         )

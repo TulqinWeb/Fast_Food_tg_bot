@@ -14,7 +14,6 @@ class Database:
         )
         self.cursor = self.conn.cursor()
 
-        # Users jadvalini yaratish va chat_id ustuniga UNIQUE qo'shish
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS users(
                 id SERIAL PRIMARY KEY, 
@@ -26,7 +25,6 @@ class Database:
             );
         """)
 
-        # Suggestion jadvalini yaratish
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS suggestions (
             id SERIAL PRIMARY KEY,
@@ -38,7 +36,6 @@ class Database:
             );
         """)
 
-        # Boshqa jadval va cheklovlar
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS categories (
                 id SERIAL PRIMARY KEY,        
@@ -82,10 +79,6 @@ class Database:
                 quantity INT NOT NULL                
                 );
              """)
-
-        # O'zgarishlarni saqlash
-        self.conn.commit()
-
 
     def create_user(self, first_name, last_name, phone_number, lang_id, chat_id):
         self.cursor.execute("""
