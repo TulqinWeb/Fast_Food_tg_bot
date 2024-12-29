@@ -14,38 +14,49 @@ class Database:
         )
         self.cursor = self.conn.cursor()
 
+        # Users jadvalini yaratish va chat_id ustuniga UNIQUE qo'shish
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS users(
                 id SERIAL PRIMARY KEY, 
                 first_name VARCHAR(50), 
                 last_name VARCHAR(50),
                 phone_number VARCHAR(20),                    
-                chat_id BIGINT NOT NULL, 
-                lang_id INTEGER,                                                      
-                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
-                );
-            """)
+                chat_id BIGINT NOT NULL UNIQUE,  -- chat_id ga UNIQUE qo'shildi
+                lang_id INTEGER                                                      
+            );
+        """)
 
+        # Suggestion jadvalini yaratish
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS suggestions (
+            id SERIAL PRIMARY KEY,
+            user_id BIGINT NOT NULL,  -- Foydalanuvchining chat_id sini saqlaydi
+            message TEXT,
+            status INTEGER,
+            created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(chat_id)  -- chat_id ga bog'lanadi
+            );
+        """)
+
+        # Boshqa jadval va cheklovlar
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS categories (
                 id SERIAL PRIMARY KEY,        
-                name_uz VARCHAR(50) NOT NULL,     
-                name_ru VARCHAR(50) NOT NULL,  
+                name_uz VARCHAR(50) NOT NULL,   
+                name_ru VARCHAR(50) NOT NULL,
                 lang_id INTEGER NOT NULL,   
-                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (lang_id) REFERENCES users(lang_id)
+                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
             );
-        """)
-        self.cursor.execute("""
-            ALTER TABLE categories
-            ADD COLUMN lang_id INTEGER;
         """)
 
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS products (
                 id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,    
+                name_uz VARCHAR(255) NOT NULL, 
+                name_ru VARCHAR(255) NOT NULL,   
                 price DECIMAL(10, 2) NOT NULL, 
+                description_uz TEXT NOT NULL,
+                description_ru TEXT NOT NULL,
                 image_url TEXT,
                 category_id INTEGER NOT NULL,
                 created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -56,21 +67,25 @@ class Database:
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS orders (
                 id SERIAL PRIMARY KEY,
-                user_id INT REFERENCES users(id),  
-                total_price DECIMAL(10, 2),        
+                user_id BIGINT NOT NULL REFERENCES users(chat_id),  -- chat_id bilan bog'lash
+                total_price DECIMAL(10, 2) NOT NULL,        
                 status VARCHAR(50) DEFAULT 'pending',
                 created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
              """)
 
         self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS order_items (
+            CREATE TABLE IF NOT EXISTS order_products (
                 id SERIAL PRIMARY KEY,
-                order_id INT REFERENCES orders(id),  
-                product_id INT REFERENCES products(id), 
+                order_id INT NOT NULL REFERENCES orders(id),  
+                product_id INT NOT NULL REFERENCES products(id), 
                 quantity INT NOT NULL                
                 );
              """)
+
+        # O'zgarishlarni saqlash
+        self.conn.commit()
+
 
     def create_user(self, first_name, last_name, phone_number, lang_id, chat_id):
         self.cursor.execute("""
