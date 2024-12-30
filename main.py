@@ -1,7 +1,8 @@
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, \
+    CallbackQueryHandler
 
-
+from buttons.inline_handler import inline_handler
 from message_handler import message_handler
 
 from register import start_conv, choose_lang, enter_first_name, enter_last_name, CHOOSE_LANG, FIRST_NAME, LAST_NAME, \
@@ -46,6 +47,7 @@ def main():
 
     app.add_handler(cov_handler())
     app.add_handler(MessageHandler(filters.TEXT, message_handler))
+    app.add_handler(CallbackQueryHandler(inline_handler))
 
     app.run_polling()
 

@@ -121,3 +121,8 @@ BACK = {
     1: "Orqaga",
     2: "назад"
 }
+
+PRODUCT = {
+    1: "Mavjud mahsulotlar",
+    2: "Доступные продукты"
+}

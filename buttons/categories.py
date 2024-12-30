@@ -11,13 +11,14 @@ async def all_categories(context, chat_id, lang_id, categories, message_id):
         category_name = category['name_uz'] if lang_id == 1 else category['name_ru']
 
         button.append(
+
             [InlineKeyboardButton(
                 text= category_name,
-                callback_data="category_product"
+                callback_data=f"category_{category[category_name]}"
             )]
         )
 
-    button.append([InlineKeyboardButton(text=globals.BACK[lang_id], callback_data='back')])
+    button.append([InlineKeyboardButton(text=globals.BACK[lang_id], callback_data='main_back')])
     reply_markup = InlineKeyboardMarkup(inline_keyboard=button)
 
     if message_id:

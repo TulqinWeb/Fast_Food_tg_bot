@@ -115,6 +115,13 @@ class Database:
                             (name, price, image_url, category_id))
         self.conn.commit()
 
+    def get_products(self):
+        self.cursor.execute("""
+            SELECT * from products
+        """)
+        all_products = dict_fetchall(self.cursor)
+        return all_products
+
 
 def dict_fetchall(cursor):
     columns = [col[0] for col in cursor.description]
