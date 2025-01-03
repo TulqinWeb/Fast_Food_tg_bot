@@ -1,3 +1,5 @@
+from itertools import product
+
 import psycopg2
 
 from config import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
@@ -115,12 +117,18 @@ class Database:
                             (name, price, image_url, category_id))
         self.conn.commit()
 
-    def get_products(self):
+    def get_products_by_category(self, category_id):
         self.cursor.execute("""
-            SELECT * from products
-        """)
+            SELECT * from products WHERE category_id = %s""", (category_id,))
         all_products = dict_fetchall(self.cursor)
         return all_products
+
+    def get_product_in_category(self,category_id):
+        self.cursor.execute("""
+            SELECT * from products as p INNER JOIN categories as c ON p.category_id = c.id WHERE category_id= %s
+        """, (category_id,))
+        products = dict_fetchall(self.cursor)
+        return products
 
 
 def dict_fetchall(cursor):

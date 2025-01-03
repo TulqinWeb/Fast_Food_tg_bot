@@ -6,10 +6,10 @@ async def all_products(context, chat_id, lang_id, products, message_id):
     for product in products:
         product_name = product['name_uz'] if lang_id == 1 else product['name_ru']
         buttons.append(
-            [InlineKeyboardButton(text=product_name, callback_data='product')]
+            [InlineKeyboardButton(text=product_name, callback_data=f"product_{product['id']}")]
         )
 
-    buttons.append([InlineKeyboardButton(text=globals.BACK[lang_id], callback_data='back_category')])
+    buttons.append([InlineKeyboardButton(text=globals.BACK[lang_id], callback_data=f"category_back")])
     reply_markup = InlineKeyboardMarkup(inline_keyboard=buttons)
 
     if message_id:

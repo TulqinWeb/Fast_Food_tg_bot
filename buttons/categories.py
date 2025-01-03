@@ -14,7 +14,7 @@ async def all_categories(context, chat_id, lang_id, categories, message_id):
 
             [InlineKeyboardButton(
                 text= category_name,
-                callback_data=f"category_{category[category_name]}"
+                callback_data=f"category_{category['id']}"
             )]
         )
 
