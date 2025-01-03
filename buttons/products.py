@@ -1,5 +1,9 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import globals
+from fastfood_db import Database
+
+db = Database()
+
 
 async def all_products(context, chat_id, lang_id, products, message_id):
     buttons = []
@@ -9,7 +13,7 @@ async def all_products(context, chat_id, lang_id, products, message_id):
             [InlineKeyboardButton(text=product_name, callback_data=f"product_{product['id']}")]
         )
 
-    buttons.append([InlineKeyboardButton(text=globals.BACK[lang_id], callback_data=f"category_back")])
+    buttons.append([InlineKeyboardButton(text=globals.BACK[lang_id], callback_data=f"back_category")])
     reply_markup = InlineKeyboardMarkup(inline_keyboard=buttons)
 
     if message_id:
