@@ -127,13 +127,6 @@ class Database:
         all_products = dict_fetchall(self.cursor)
         return all_products
 
-    def get_product_in_category(self, category_id):
-        self.cursor.execute("""
-            SELECT * from products as p INNER JOIN categories as c ON p.category_id = c.id WHERE category_id= %s
-        """, (category_id,))
-        products = dict_fetchall(self.cursor)
-        return products
-
 
 def dict_fetchall(cursor):
     columns = [col[0] for col in cursor.description]
