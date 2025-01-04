@@ -5,7 +5,7 @@ from fastfood_db import Database
 db = Database()
 
 
-async def all_products(context, chat_id, lang_id, products, message_id):
+async def all_products(context, chat_id, lang_id, products,image_path, message_id):
     buttons = []
     for product in products:
         product_name = product['name_uz'] if lang_id == 1 else product['name_ru']
@@ -17,16 +17,23 @@ async def all_products(context, chat_id, lang_id, products, message_id):
     reply_markup = InlineKeyboardMarkup(inline_keyboard=buttons)
 
     if message_id:
-        await context.bot.edit_message_text(
-            chat_id=chat_id,
-            message_id=message_id,
-            text=globals.PRODUCT[lang_id],
-            reply_markup=reply_markup
-        )
+        await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
+
+        with open(image_path, 'rb') as photo:
+            await context.bot.send_photo(
+                chat_id=chat_id,
+                photo=photo,
+                caption=globals.PRODUCT[lang_id],
+                reply_markup=reply_markup
+            )
+
 
     else:
-        await context.bot.send_message(
-            chat_id=chat_id,
-            text=globals.PRODUCT[lang_id],
-            reply_markup=reply_markup
-        )
+        with open(image_path, 'rb') as photo:
+            await context.bot.send_photo(
+                chat_id=chat_id,
+                photo=photo,
+                caption=globals.PRODUCT[lang_id],
+                reply_markup=reply_markup
+            )
+

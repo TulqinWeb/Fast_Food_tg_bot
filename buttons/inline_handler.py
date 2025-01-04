@@ -26,25 +26,21 @@ async def inline_handler(update, context):
         data_sp = query.data.split('_')
         if data_sp[0] == 'category':
             category_id = int(data_sp[1])
+            image_name = db.get_category_image(category_id)
+            image_path = f'images/{image_name}'
             products = db.get_products_by_category(category_id)
             await all_products(context=context, chat_id=user.id,
                            lang_id=db_user['lang_id'],
                            products=products,
+                           image_path= image_path,
                            message_id=query.message.message_id)
 
-    elif query.data.startswith('product'):
-        data_sp = query.data.split('_')
-        if data_sp[0] == 'product':
-            category_id = int(data_sp[1])
-            products = db.get_product_in_category(category_id)
-            await all_products(context=context, chat_id=user.id,
-                           lang_id=db_user['lang_id'],
-                           products=products,
-                           message_id=query.message.message_id)
 
     elif query.data == 'back_category':
+        await context.bot.delete_message(chat_id=user.id, message_id=query.message.message_id)
+
         categories = db.get_categories()
         await all_categories(context=context, chat_id=user.id,
                              lang_id=db_user['lang_id'],
                              categories=categories,
-                             message_id=query.message.message_id)
+                             message_id=None)

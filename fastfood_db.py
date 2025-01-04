@@ -41,8 +41,7 @@ class Database:
                 id SERIAL PRIMARY KEY,        
                 name_uz VARCHAR(50) NOT NULL,   
                 name_ru VARCHAR(50) NOT NULL,
-                lang_id INTEGER NOT NULL,   
-                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+                image_url TEXT
             );
         """)
 
@@ -108,6 +107,13 @@ class Database:
             """)
         all_categories = dict_fetchall(self.cursor)
         return all_categories
+
+    def get_category_image(self, category_id):
+        self.cursor.execute("""
+            SELECT image_url FROM categories WHERE id = %s
+        """, (category_id,))
+        result = self.cursor.fetchone()
+        return result[0] if result else None
 
     def create_product(self, name, price, image_url, category_id):
         self.cursor.execute("""
