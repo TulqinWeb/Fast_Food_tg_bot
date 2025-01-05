@@ -1,4 +1,5 @@
 from buttons import main_menu, all_categories
+from buttons.product_inf import product_inf
 from buttons.products import all_products
 from fastfood_db import Database
 
@@ -44,3 +45,18 @@ async def inline_handler(update, context):
                              lang_id=db_user['lang_id'],
                              categories=categories,
                              message_id=None)
+
+    elif query.data.startswith('product'):
+        data_sp = query.data.split('_')
+        if data_sp[0] == 'product':
+            product_id = int(data_sp[1])
+            product = db.get_product(product_id)
+            image_name = product['image_url']
+            image_path = f'images/{image_name}'
+            await product_inf(context=context, chat_id=user.id,
+                              lang_id=db_user['lang_id'],
+                              product=product, image_path=image_path,
+                              message_id=query.message.message_id)
+
+
+

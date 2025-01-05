@@ -127,6 +127,12 @@ class Database:
         all_products = dict_fetchall(self.cursor)
         return all_products
 
+    def get_product(self, product_id):
+        self.cursor.execute("""
+            SELECT * from products WHERE id= %s """, (product_id,))
+        product = dict_fetchone(self.cursor)
+        return product
+
 
 def dict_fetchall(cursor):
     columns = [col[0] for col in cursor.description]

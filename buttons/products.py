@@ -33,7 +33,7 @@ async def all_products(context, chat_id, lang_id, products, image_path, message_
     if message_id:
         await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
 
-        with open(image_path, 'rb') as photo:
+        with open(image_path.strip(), 'rb') as photo:
             await context.bot.send_photo(
                 chat_id=chat_id,
                 photo=photo,
@@ -43,7 +43,7 @@ async def all_products(context, chat_id, lang_id, products, image_path, message_
 
 
     else:
-        with open(image_path, 'rb') as photo:
+        with open(image_path.strip(), 'rb') as photo:
             await context.bot.send_photo(
                 chat_id=chat_id,
                 photo=photo,

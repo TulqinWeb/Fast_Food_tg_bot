@@ -126,3 +126,8 @@ PRODUCT = {
     1: "Mavjud mahsulotlar",
     2: "Доступные продукты"
 }
+
+MAHSULOT = {
+    1: "Mahsulot",
+    2: "Продукт"
+}
