@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, \
     CallbackQueryHandler
 
+from buttons.handle_quantity import handle_quantity
 from buttons.inline_handler import inline_handler
 from message_handler import message_handler
 
@@ -47,8 +48,8 @@ def main():
 
     app.add_handler(cov_handler())
     app.add_handler(MessageHandler(filters.TEXT, message_handler))
+    app.add_handler(CallbackQueryHandler(handle_quantity, pattern='^(increase|decrease)$'))
     app.add_handler(CallbackQueryHandler(inline_handler))
-
     app.run_polling()
 
 

@@ -3,8 +3,9 @@ from textwrap import dedent
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import globals
 
+
 async def product_inf(context, chat_id, lang_id, product, image_path, message_id):
-    default = 1
+    current_quantity = 1
 
     inf = dedent(f"""
        {globals.MAHSULOT[lang_id]}: {product['name_uz'] if lang_id == 1 else product['name_ru']}
@@ -14,12 +15,12 @@ async def product_inf(context, chat_id, lang_id, product, image_path, message_id
 
     buttons = [
         [
-            InlineKeyboardButton(text='-', callback_data='decrease'),
-            InlineKeyboardButton(text=str(default), callback_data='quantity'),
-            InlineKeyboardButton(text='+', callback_data='increase')
+            InlineKeyboardButton(text='-', callback_data=f'decrease'),
+            InlineKeyboardButton(text=str(current_quantity), callback_data=f'quantity'),
+            InlineKeyboardButton(text='+', callback_data=f'increase')
         ],
         [
-            InlineKeyboardButton(text="🛒 Savatga qo'shish", callback_data='add_to_cart')
+            InlineKeyboardButton(text=globals.BTN_KORZINKA[lang_id], callback_data=f'add_to_cart')
         ],
         [
             InlineKeyboardButton(text=globals.BACK[lang_id], callback_data='back_products')
@@ -45,6 +46,3 @@ async def product_inf(context, chat_id, lang_id, product, image_path, message_id
                 caption=inf,
                 reply_markup=reply_markup
             )
-
-
-

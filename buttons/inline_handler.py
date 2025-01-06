@@ -13,6 +13,12 @@ async def inline_handler(update, context):
     print(query.data)
 
     if query.data == 'main_back':
+        # Xabarni "⏱" belgisi bilan tahrirlash
+        await query.message.edit_text(
+            text='⏳',
+            reply_markup=None
+        )
+
         await context.bot.delete_message(
             chat_id=user.id,
             message_id=query.message.message_id
@@ -27,14 +33,16 @@ async def inline_handler(update, context):
         data_sp = query.data.split('_')
         if data_sp[0] == 'category':
             category_id = int(data_sp[1])
+            context.user_data['selected_category_id'] = category_id
+
             image_name = db.get_category_image(category_id)
             image_path = f'images/{image_name}'
             products = db.get_products_by_category(category_id)
             await all_products(context=context, chat_id=user.id,
-                           lang_id=db_user['lang_id'],
-                           products=products,
-                           image_path= image_path,
-                           message_id=query.message.message_id)
+                               lang_id=db_user['lang_id'],
+                               products=products,
+                               image_path=image_path,
+                               message_id=query.message.message_id)
 
 
     elif query.data == 'back_category':
@@ -58,5 +66,14 @@ async def inline_handler(update, context):
                               product=product, image_path=image_path,
                               message_id=query.message.message_id)
 
-
-
+    elif query.data == 'back_products':
+        category_id = context.user_data.get('selected_category_id')
+        image_name = db.get_category_image(category_id)
+        print(image_name)
+        image_path = f'images/{image_name}'
+        products = db.get_products_by_category(category_id)
+        await all_products(context=context, chat_id=user.id,
+                           lang_id=db_user['lang_id'],
+                           products=products,
+                           image_path=image_path,
+                           message_id=query.message.message_id)

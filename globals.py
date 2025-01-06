@@ -56,7 +56,7 @@ BTN_ABOUT_US = {
 }
 BTN_KORZINKA = {
     1: "🛍 Xarid qilish",
-    21: "🛍 Покупка товаров",
+    2: "🛍 Покупка товаров",
 }
 BTN_COMMENTS = {
     1: "✍️Fikr bildirish",
@@ -130,4 +130,9 @@ PRODUCT = {
 MAHSULOT = {
     1: "Mahsulot",
     2: "Продукт"
+}
+
+NOTICE = {
+    1: "Miqdor 1 dan kam bo'lishi mumkin emas!",
+    2: "Сумма не может быть меньше 1!"
 }
