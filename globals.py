@@ -43,7 +43,7 @@ BTN_ORDER = {
     2: "🛒 Заказать"
 }
 TEXT_ORDER = {
-    1: "Kategoriylardan birini tanlang!",
+    1: "Kategoriyalardan birini tanlang!",
     2: "Выбери одну из категорий!"
 }
 BTN_MY_ORDERS = {
