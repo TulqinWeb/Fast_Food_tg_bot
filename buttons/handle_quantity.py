@@ -18,7 +18,6 @@ async def handle_quantity(update, context):
     current_quantity = context.user_data.get(f'quantity_{product_id}', 1)
     print(current_quantity)
 
-
     if query.data == 'increase':
         current_quantity += 1
         print(current_quantity)

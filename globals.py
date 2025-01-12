@@ -77,8 +77,8 @@ TEXT_PRODUCT_DESC = {
 }
 
 AT_KORZINKA = {
-    1: "Savatchada",
-    2: "В корзине"
+    1: "Sizning savatingizdagi mahsulotlar:",
+    2: "Товары в вашей корзине:"
 }
 
 ALL = {
@@ -140,4 +140,14 @@ NOTICE = {
 SAVAT = {
     1: "🛒 Savatni ko'rish",
     2: "🛒 Посмотреть корзину"
+}
+
+ORDER = {
+    1: "Buyurtma qilish",
+    2: "Заказ"
+}
+
+CLEAR_CART = {
+    1: "Savatni tozalash",
+    2: "Очистить корзину"
 }

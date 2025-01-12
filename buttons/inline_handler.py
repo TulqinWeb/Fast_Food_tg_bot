@@ -2,6 +2,7 @@ from buttons import main_menu, all_categories
 from buttons.add_to_cart import add_to_cart
 from buttons.product_inf import product_inf
 from buttons.products import all_products
+from buttons.view_cart import view_cart
 from fastfood_db import Database
 
 db = Database()
@@ -83,3 +84,12 @@ async def inline_handler(update, context):
     elif query.data.startswith("add_to_cart"):
         await add_to_cart(update=update, context=context)
 
+    elif query.data == 'view_cart':
+        chat_id = user.id
+        db_user = db.get_user_by_chat_id(user.id)
+        user_id = db_user['id']
+        lang_id = db_user['lang_id']
+        user_items = db.get_cart_products(user_id)
+        await view_cart(context=context,chat_id=chat_id,
+                        lang_id=lang_id,user_items=user_items,
+                        message_id=query.message.message_id)

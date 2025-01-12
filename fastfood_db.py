@@ -143,6 +143,24 @@ class Database:
         ''', (user_id, product_id, quantity))
         self.conn.commit()
 
+    def get_cart_products(self, user_id):
+        self.cursor.execute("""
+            SELECT 
+                products.name_uz AS name_uz,
+                products.name_ru AS name_ru,
+                products.price AS price,
+                order_products.quantity AS quantity
+            FROM 
+                order_products
+            JOIN 
+                products ON order_products.product_id = products.id
+            WHERE 
+                order_products.user_id = %s AND order_products.order_id IS NULL
+        """, (user_id,))
+
+        user_order_products = dict_fetchall(self.cursor)
+        return user_order_products
+
 
 def dict_fetchall(cursor):
     columns = [col[0] for col in cursor.description]
