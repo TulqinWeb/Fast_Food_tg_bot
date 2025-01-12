@@ -1,7 +1,9 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import globals
 from fastfood_db import Database
+
 db = Database()
+
 
 async def handle_quantity(update, context):
     user = update.callback_query.from_user
@@ -10,20 +12,24 @@ async def handle_quantity(update, context):
 
     query = update.callback_query
     print(query.data)
+    product_id = context.user_data.get('product_id')
 
     # Avvalgi miqdorni olish
-    current_quantity = context.user_data.get('quantity', 1)
+    current_quantity = context.user_data.get(f'quantity_{product_id}', 1)
+    print(current_quantity)
+
 
     if query.data == 'increase':
         current_quantity += 1
+        print(current_quantity)
     elif query.data == 'decrease':
         if current_quantity > 1:
             current_quantity -= 1
         else:
             await query.answer(globals.NOTICE[lang_id], show_alert=True)
 
-
-    context.user_data['quantity'] = current_quantity
+    context.user_data[f'quantity_{product_id}'] = current_quantity
+    print(current_quantity)
 
     buttons = [
         [
@@ -32,7 +38,10 @@ async def handle_quantity(update, context):
             InlineKeyboardButton(text='+', callback_data='increase')
         ],
         [
-            InlineKeyboardButton(text=globals.BTN_KORZINKA[lang_id], callback_data='add_to_cart')
+            InlineKeyboardButton(text=globals.BTN_KORZINKA[lang_id], callback_data=f'add_to_cart_{product_id}')
+        ],
+        [
+            InlineKeyboardButton(text=globals.SAVAT[lang_id], callback_data='view_cart')
         ],
         [
             InlineKeyboardButton(text=globals.BACK[lang_id], callback_data='back_products')

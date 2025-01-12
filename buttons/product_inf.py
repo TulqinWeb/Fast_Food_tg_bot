@@ -6,6 +6,9 @@ import globals
 
 async def product_inf(context, chat_id, lang_id, product, image_path, message_id):
     current_quantity = 1
+    print(product['id'])
+    context.user_data['product_id'] = product['id']
+    context.user_data[f'quantity_{product['id']}'] = current_quantity
 
     inf = dedent(f"""
        {globals.MAHSULOT[lang_id]}: {product['name_uz'] if lang_id == 1 else product['name_ru']}
@@ -16,11 +19,14 @@ async def product_inf(context, chat_id, lang_id, product, image_path, message_id
     buttons = [
         [
             InlineKeyboardButton(text='-', callback_data=f'decrease'),
-            InlineKeyboardButton(text=str(current_quantity), callback_data=f'quantity'),
+            InlineKeyboardButton(text=str(current_quantity), callback_data='quantity'),
             InlineKeyboardButton(text='+', callback_data=f'increase')
         ],
         [
-            InlineKeyboardButton(text=globals.BTN_KORZINKA[lang_id], callback_data=f'add_to_cart')
+            InlineKeyboardButton(text=globals.BTN_KORZINKA[lang_id], callback_data=f"add_to_cart_{product['id']}")
+        ],
+        [
+            InlineKeyboardButton(text=globals.SAVAT[lang_id], callback_data='view_cart')
         ],
         [
             InlineKeyboardButton(text=globals.BACK[lang_id], callback_data='back_products')

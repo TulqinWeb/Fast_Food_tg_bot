@@ -73,9 +73,11 @@ class Database:
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS order_products (
                 id SERIAL PRIMARY KEY,
-                order_id INT NOT NULL REFERENCES orders(id),  
+                user_id INT NOT NULL REFERENCES users(id),
+                order_id INT REFERENCES orders(id),  
                 product_id INT NOT NULL REFERENCES products(id), 
-                quantity INT NOT NULL                
+                quantity INT NOT NULL,
+                created_ad TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 );
              """)
 
@@ -132,6 +134,14 @@ class Database:
             SELECT * from products WHERE id= %s """, (product_id,))
         product = dict_fetchone(self.cursor)
         return product
+
+    # Tanlangan mahsulotlarni vaqtinchalik saqlash
+    def add_to_cart_product(self, user_id, product_id, quantity):
+        self.cursor.execute('''
+            INSERT INTO order_products (user_id, product_id, quantity)
+            VALUES (%s, %s, %s)
+        ''', (user_id, product_id, quantity))
+        self.conn.commit()
 
 
 def dict_fetchall(cursor):
