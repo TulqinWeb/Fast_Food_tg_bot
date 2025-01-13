@@ -82,7 +82,7 @@ AT_KORZINKA = {
 }
 
 ALL = {
-    1: "Jami",
+    1: "Umumiy narx",
     2: "Все"
 }
 
@@ -144,10 +144,20 @@ SAVAT = {
 
 ORDER = {
     1: "Buyurtma qilish",
-    2: "Заказ"
+    2: "Заказать"
 }
 
 CLEAR_CART = {
     1: "Savatni tozalash",
     2: "Очистить корзину"
+}
+
+QUANTITY = {
+    1: "Miqdori",
+    2: "Количество"
+}
+
+TOTAL_COST = {
+    1: "Barcha mahsulotning umumiy narxi:",
+    2: "Общая стоимость всех товаров:"
 }
