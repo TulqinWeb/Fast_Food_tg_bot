@@ -63,7 +63,7 @@ class Database:
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS orders (
                 id SERIAL PRIMARY KEY,
-                user_id BIGINT NOT NULL REFERENCES users(chat_id),  -- chat_id bilan bog'lash
+                user_id BIGINT NOT NULL REFERENCES users(id),
                 total_price DECIMAL(10, 2) NOT NULL,        
                 status VARCHAR(50) DEFAULT 'pending',
                 created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -157,9 +157,37 @@ class Database:
             WHERE 
                 order_products.user_id = %s AND order_products.order_id IS NULL
         """, (user_id,))
-
         user_order_products = dict_fetchall(self.cursor)
         return user_order_products
+
+    def order(self, user_id, total_price, status='pending'):
+        self.cursor.execute("""
+        INSERT INTO orders (user_id, total_price, status) 
+        VALUES (%s,%s,%s) RETURNING id""", (user_id, total_price, status))
+        self.conn.commit()
+
+    def get_order(self, user_id):
+        self.cursor.execute("""
+        SELECT * from orders WHERE user_id = %s;
+        """,(user_id,))
+        order = dict_fetchall(self.cursor)
+        return order
+
+    def get_last_order(self, user_id):
+        self.cursor.execute("""
+        SELECT * FROM orders WHERE user_id = %s
+        ORDER BY created_at DESC LIMIT 1;
+        """, (user_id,))
+        order = dict_fetchone(self.cursor)  # faqat oxirgi buyurtma qaytadi
+        return order
+
+    def update_order_products(self, order_id, user_id):
+        self.cursor.execute("""
+        UPDATE order_products 
+        SET order_id= %s 
+        WHERE user_id=%s AND order_id IS NULL
+        """, (order_id, user_id))
+        self.conn.commit()
 
 
 def dict_fetchall(cursor):

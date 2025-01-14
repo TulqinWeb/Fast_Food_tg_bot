@@ -1,5 +1,6 @@
 from buttons import main_menu, all_categories
 from buttons.add_to_cart import add_to_cart
+from buttons.order import order
 from buttons.product_inf import product_inf
 from buttons.products import all_products
 from buttons.view_cart import view_cart
@@ -93,3 +94,18 @@ async def inline_handler(update, context):
         await view_cart(context=context,chat_id=chat_id,
                         lang_id=lang_id,user_items=user_items,
                         message_id=query.message.message_id)
+
+    elif query.data == "order":
+        total_price = context.user_data.get('total_price')
+        print(total_price)
+        chat_id = user.id
+        user_id = db_user['id']
+        lang_id = db_user['lang_id']
+        db.order(user_id=user_id,total_price=total_price)
+        order_id = db.get_last_order(user_id)['id']
+        await order(context=context,chat_id=chat_id,user_id=user_id,
+                    order_id=order_id,lang_id=lang_id,
+                    message_id=query.message.message_id)
+
+
+

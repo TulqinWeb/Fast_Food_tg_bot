@@ -161,3 +161,28 @@ TOTAL_COST = {
     1: "Barcha mahsulotning umumiy narxi:",
     2: "Общая стоимость всех товаров:"
 }
+
+EMPTY = {
+    1: "Savatingiz hozircha bo'sh!",
+    2: "Ваша корзина на данный момент пуста!"
+}
+
+ACCEPT = {
+    1: "🎉 Buyurtmangiz qabul qilindi! 🎉",
+    2: "🎉Ваш заказ принят! 🎉"
+}
+
+ORDER_NUMBER = {
+    1: "🔖 Buyurtma raqami:",
+    2: "🔖Номер заказа:"
+}
+
+ORDER_TOTAL_COST = {
+    1: "💳 Umumiy narx:",
+    2: "💳 Общая стоимость:"
+}
+
+ORDER_TIME = {
+    1: "📅 Buyurtma vaqti:",
+    2: "📅Время заказа:"
+}
