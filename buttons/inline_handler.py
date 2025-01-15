@@ -103,8 +103,9 @@ async def inline_handler(update, context):
         lang_id = db_user['lang_id']
         db.order(user_id=user_id,total_price=total_price)
         order_id = db.get_last_order(user_id)['id']
+        user_items = db.get_cart_products(user_id)
         await order(context=context,chat_id=chat_id,user_id=user_id,
-                    order_id=order_id,lang_id=lang_id,
+                    order_id=order_id,user_items=user_items,lang_id=lang_id,
                     message_id=query.message.message_id)
 
 

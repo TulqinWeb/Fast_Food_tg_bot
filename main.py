@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, \
     CallbackQueryHandler
 
+from buttons.order import order
 from buttons.handle_quantity import handle_quantity
 from buttons.inline_handler import inline_handler
 from message_handler import message_handler

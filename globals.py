@@ -186,3 +186,23 @@ ORDER_TIME = {
     1: "📅 Buyurtma vaqti:",
     2: "📅Время заказа:"
 }
+
+ORDER_CONTENT = {
+    1: "📦 Buyurtma tarkibi:",
+    2: "📦 Содержание заказа:"
+}
+
+ORDER_THANKS = {
+    1: "🤝Xizmatimizdan foydalanganingiz uchun rahmat!",
+    2: "🤝Спасибо, что пользуетесь нашим сервисом!"
+}
+
+ORDER_PHONE_TEXT = {
+    1: "📞 Qo'shimcha ma'lumot uchun biz bilan bog'laning!",
+    2: "📞 Свяжитесь с нами для получения дополнительной информации!"
+}
+
+GET_LOCATION = {
+    1: "📌 Pastdagi <<Send location>> tugmasi orqali joylashuvingizni yuboring! ",
+    2: "📌 Отправьте свое местоположение, используя кнопку <<Send location>> ниже!"
+}
