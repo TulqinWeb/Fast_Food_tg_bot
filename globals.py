@@ -136,6 +136,10 @@ NOTICE = {
     1: "Miqdor 1 dan kam bo'lishi mumkin emas!",
     2: "Сумма не может быть меньше 1!"
 }
+ADD_PRODUCT = {
+    1: "Savatga mahsulot qo'shildi!",
+    2: "Товар добавлен в корзину!"
+}
 
 SAVAT = {
     1: "🛒 Savatni ko'rish",
@@ -203,6 +207,11 @@ ORDER_PHONE_TEXT = {
 }
 
 GET_LOCATION = {
-    1: "📌 Pastdagi <<Send location>> tugmasi orqali joylashuvingizni yuboring! ",
-    2: "📌 Отправьте свое местоположение, используя кнопку <<Send location>> ниже!"
+    1: "📌 Buyurtmangizni manzilingizga yetkazib berishimiz uchun pastdagi «Send location» tugmasi orqali joylashuvingizni yuboring!",
+    2: "📌 Отправьте свое местоположение, используя кнопку «Send location» ниже, чтобы мы могли доставить ваш заказ по вашему адресу!"
+}
+
+ADDRESS = {
+    1: "Manzilingiz qabul qilindi!",
+    2: "Ваш адрес принят!"
 }

@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, \
     CallbackQueryHandler
 
-from buttons.order import order
+from buttons import location_handler
 from buttons.handle_quantity import handle_quantity
 from buttons.inline_handler import inline_handler
 from message_handler import message_handler
@@ -26,7 +26,6 @@ logger = logging.getLogger(__name__)
 from config import BOT_TOKEN  # telegram bot token
 
 
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await start_conv(update, context)
 
@@ -48,6 +47,7 @@ def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(cov_handler())
+    app.add_handler(MessageHandler(filters.LOCATION, location_handler))
     app.add_handler(MessageHandler(filters.TEXT, message_handler))
     app.add_handler(CallbackQueryHandler(handle_quantity, pattern='^(increase|decrease)$'))
     app.add_handler(CallbackQueryHandler(inline_handler))
