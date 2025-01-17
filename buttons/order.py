@@ -10,11 +10,8 @@ import globals
 
 async def order(context, chat_id, user_id, order_id, user_items, lang_id, message_id):
     if order_id:
-        print(f"Order id {order_id}")
         db.update_order_products(order_id, user_id)
-        print("Order qabul qilindi")
         order_list = db.get_last_order(user_id)
-        print(order_list)
 
         order_text = f"<b>{globals.ACCEPT[lang_id]}</b>\n\n"
 

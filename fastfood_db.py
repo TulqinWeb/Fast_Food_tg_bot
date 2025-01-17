@@ -189,6 +189,13 @@ class Database:
         """, (order_id, user_id))
         self.conn.commit()
 
+    def get_order_products(self, user_id, order_id):
+        self.cursor.execute("""
+        SELECT * FROM order_products WHERE user_id = %s and order_id = %s
+        """,(user_id,order_id))
+        user_order_products = dict_fetchone(self.cursor)
+        return user_order_products
+
 
 def dict_fetchall(cursor):
     columns = [col[0] for col in cursor.description]

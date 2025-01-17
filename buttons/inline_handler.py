@@ -12,6 +12,7 @@ db = Database()
 async def inline_handler(update, context):
     query = update.callback_query
     user = update.callback_query.from_user
+    context.user_data['user_chat_id'] = user.id
     print(user.id)
     db_user = db.get_user_by_chat_id(user.id)
     print(query.data)
@@ -91,6 +92,7 @@ async def inline_handler(update, context):
         user_id = db_user['id']
         lang_id = db_user['lang_id']
         user_items = db.get_cart_products(user_id)
+        context.user_data['user_items'] = user_items
         await view_cart(context=context,chat_id=chat_id,
                         lang_id=lang_id,user_items=user_items,
                         message_id=query.message.message_id)

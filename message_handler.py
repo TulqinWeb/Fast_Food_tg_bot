@@ -11,6 +11,8 @@ async def message_handler(update, context):
     text = update.message.text
     user = update.message.from_user
     db_user = db.get_user_by_chat_id(user.id)
+    print(db_user['id'])
+    context.user_data['db_user_id'] = db_user['id']
 
     if text == globals.BTN_ORDER[db_user["lang_id"]]:
         temp_message: Message = await context.bot.send_message(chat_id=user.id,
