@@ -97,14 +97,19 @@ SUM = {
 }
 
 ABOUT_COMPANY = {
-    1: "Biz <b>F-18 backend dasturchilar guruhi</b>miz! "
-       "\n\nBirgalikda biznesingizni rivojlantiramiz va uni "
-       "zamonaviy uslubda ommaga taqdim qilamiz!\n\n"
-       "<b>BIZ SIZ HAQINGIZDA QAYG'URAMIZ!!!</b>",
-    2: "Мы <b>F-18 backend dasturchilar guruhi</b>!"
-       "\n\nМы будем развивать ваш бизнес вместе"
-       "и представляем публике в современном стиле!\n\n"
-       "<b>МЫ ЗАБОТИМСЯ О ВАС !!!</b>"
+    1:  "<b>🍽 *Biz haqimizda*:</b>\n\n"
+        "<b>Bizning restoran sifatli va mazali taomlarni taklif etadi!</b>\n"
+        "<b>📍Manzil:</b> Toshkent, Yunusobod tumani, 7-mavze\n"
+        "<b>⏰ Ish vaqti:</b> 10:00 - 23:00\n"
+        "<b>📞 Aloqa uchun:</b> +998 (90) 123-45-67\n"
+        "<b>🌐 Bizning missiyamiz – har bir mijozni mazali taomlar bilan xursand qilish!</b>",
+
+    2:  "<b>🍽 *О нас*:</b>\n\n"
+        "<b>Наш ресторан предлагает качественные и вкусные блюда!</b>\n"  
+        "<b>📍Адрес:</b> Ташкент, Юнусабадский район, 7-й микрорайон\n" 
+        "<b>⏰Часы работы:</b> 10:00 - 23:00\n"  
+        "<b>📞Контактный номер:</b> +998 (90) 123-45-67\n" 
+        "<b>🌐Наша миссия – радовать каждого клиента вкусными блюдами!</b>"
 }
 
 NO_ZAKAZ = {
@@ -212,8 +217,8 @@ GET_LOCATION = {
 }
 
 ADDRESS = {
-    1: "Manzilingiz qabul qilindi!",
-    2: "Ваш адрес принят!"
+    1: "<b>Manzilingiz qabul qilindi!</b>",
+    2: "<b>Ваш адрес принят!</b>"
 }
 
 NEW_ORDER ={
@@ -239,4 +244,34 @@ CLIENT_LOCATION = {
 CLEAR_CART_ITEMS = {
     1: "Savat tozalandi!",
     2: "Корзина пуста!"
+}
+
+SEND_COMMENT = {
+    1: "Fikringizni yuboring:",
+    2: "Отправьте свое мнение:"
+}
+
+NEW_COMMENT = {
+    1: "Yangi fikr kelib tushdi:",
+    2: "Поступило новое мнение:"
+}
+
+USER = {
+    1: "Foydalanuvchi:",
+    2: "Пользователь:"
+}
+
+COMMENT = {
+    1: "Fikr:",
+    2: "Отзыв:"
+}
+
+COMMENT_MESSAGE = {
+    1: "Fikringiz uchun rahmat! Adminimizga yuborildi. 😊",
+    2: "Спасибо за ваш отзыв! Он был отправлен нашему администратору. 😊"
+}
+
+COMMENT_WARNING = {
+    1: "Siz hozir fikr bildirish rejimida emassiz. Iltimos, fikr tugmasini bosing.",
+    2: "Вы сейчас не в режиме отправки отзыва. Пожалуйста, нажмите кнопку «Оставить отзыв»."
 }

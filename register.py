@@ -16,7 +16,7 @@ async def start_conv(update, context):
     user = update.message.from_user
     db_user = db.get_user_by_chat_id(user.id)
     if db_user:
-        await main_menu(context=context, chat_id=user.id, lang_id=db_user["lang_id"],message_id=None)
+        await main_menu(context=context, chat_id=user.id, lang_id=db_user["lang_id"], message_id=None)
         return ConversationHandler.END
     else:
         buttons = [

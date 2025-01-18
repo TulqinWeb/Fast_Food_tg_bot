@@ -18,7 +18,8 @@ async def location_handler(update, context):
         context.user_data['longitude'] = longitude
 
         await context.bot.send_message(chat_id=chat_id, text=globals.ADDRESS[lang_id],
-                                       reply_markup=ReplyKeyboardRemove())
+                                       reply_markup=ReplyKeyboardRemove(),
+                                       parse_mode="HTML")
 
         await send_admin_message(context=context, latitude=latitude,longitude=longitude)
 

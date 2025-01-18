@@ -5,6 +5,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, Messa
 from buttons import location_handler
 from buttons.handle_quantity import handle_quantity
 from buttons.inline_handler import inline_handler
+from comment_handler import handle_user_message
 from message_handler import message_handler
 
 from register import start_conv, choose_lang, enter_first_name, enter_last_name, CHOOSE_LANG, FIRST_NAME, LAST_NAME, \
@@ -51,6 +52,8 @@ def main():
     app.add_handler(MessageHandler(filters.TEXT, message_handler))
     app.add_handler(CallbackQueryHandler(handle_quantity, pattern='^(increase|decrease)$'))
     app.add_handler(CallbackQueryHandler(inline_handler))
+
+    app.add_handler(MessageHandler(filters.TEXT, handle_user_message))
     app.run_polling()
 
 
