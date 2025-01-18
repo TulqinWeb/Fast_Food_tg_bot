@@ -215,3 +215,28 @@ ADDRESS = {
     1: "Manzilingiz qabul qilindi!",
     2: "Ваш адрес принят!"
 }
+
+NEW_ORDER ={
+    1: "Yangi buyurtma!",
+    2: "Новый заказ!"
+}
+
+CLIENT = {
+    1: "Buyurtma beruvchi:",
+    2: "Клиент:"
+}
+
+CLIENT_PHONE = {
+    1: "Buyurtma beruvchi telefon raqami:",
+    2: "Номер телефона клиента:"
+}
+
+CLIENT_LOCATION = {
+    1: "Buyurtma beruvchi manzili 👇",
+    2: "Адрес клиента 👇"
+}
+
+CLEAR_CART_ITEMS = {
+    1: "Savat tozalandi!",
+    2: "Корзина пуста!"
+}

@@ -1,3 +1,5 @@
+from unicodedata import category
+
 from buttons import main_menu, all_categories
 from buttons.add_to_cart import add_to_cart
 from buttons.order import order
@@ -5,7 +7,7 @@ from buttons.product_inf import product_inf
 from buttons.products import all_products
 from buttons.view_cart import view_cart
 from fastfood_db import Database
-
+import globals
 db = Database()
 
 
@@ -109,6 +111,26 @@ async def inline_handler(update, context):
         await order(context=context,chat_id=chat_id,user_id=user_id,
                     order_id=order_id,user_items=user_items,lang_id=lang_id,
                     message_id=query.message.message_id)
+
+    elif query.data == "clear_cart":
+        user_id = db_user['id']
+        lang_id = db_user['lang_id']
+        db.delete_cart_products(user_id)
+        categories = db.get_categories()
+        await query.answer(text=f"{globals.CLEAR_CART_ITEMS[lang_id]}", show_alert=False)
+        await all_categories(context=context, chat_id=user.id,
+                             lang_id=db_user['lang_id'],
+                             categories=categories,
+                             message_id=query.message.message_id)
+
+    elif query.data == 'back':
+        categories = db.get_categories()
+        await all_categories(context=context, chat_id=user.id,
+                             lang_id=db_user['lang_id'],
+                             categories=categories,
+                             message_id=query.message.message_id)
+
+
 
 
 

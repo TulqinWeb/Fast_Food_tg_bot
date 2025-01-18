@@ -19,10 +19,10 @@ async def send_admin_message(context, latitude, longitude):
     user_items = context.user_data.get('user_items')
     print(user_items)
 
-    order_text = (f"<b>Yangi buyurtma</b>\n\n"
+    order_text = (f"<b>{globals.NEW_ORDER[lang_id]}</b>\n\n"
                   f"<b>{globals.ORDER_NUMBER[lang_id]} {order_list['order_id']}</b>\n"
-                  f"<b>Buyurtma beruvchi: {user_inf['first_name']} {user_inf['last_name']}</b>\n"
-                  f"<b>Buyurtma beruvchi telefon raqami: {user_inf['phone_number']}</b>\n\n")
+                  f"<b>{globals.CLIENT[lang_id]} {user_inf['first_name']} {user_inf['last_name']}</b>\n"
+                  f"<b>{globals.CLIENT_PHONE[lang_id]} {user_inf['phone_number']}</b>\n\n")
 
     order_text += (
         f"<b>{globals.ORDER_TOTAL_COST[lang_id]} {order['total_price']}</b>\n"
@@ -47,7 +47,7 @@ async def send_admin_message(context, latitude, longitude):
         )
 
     order_text += (
-        f"<b> Buyurtma beruvchi manzili</b>\n"
+        f"<b>{globals.CLIENT_LOCATION[lang_id]}</b>\n"
         f"<b> Google maps</b>\n"
         f"https://www.google.com/maps?q={latitude},{longitude}\n\n"
         f"<b>Yandex maps</b>\n"

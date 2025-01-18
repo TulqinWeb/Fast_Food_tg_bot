@@ -143,6 +143,13 @@ class Database:
         ''', (user_id, product_id, quantity))
         self.conn.commit()
 
+    # Savatda vaqtinchalik saqlangan mahsulotlarni o'chirish uchun
+    def delete_cart_products(self, user_id):
+        self.cursor.execute("""
+        DELETE from order_products WHERE user_id= %s and order_id IS NULL
+        """, (user_id,))
+        self.conn.commit()
+
     def get_cart_products(self, user_id):
         self.cursor.execute("""
             SELECT 

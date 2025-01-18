@@ -5,9 +5,9 @@ from fastfood_db import Database
 
 db = Database()
 
-
+# Savatdagi mahsulotlarni ko'rish uchun!
 async def view_cart(context, chat_id, lang_id, user_items, message_id):
-    if user_items:
+    if user_items:  # user_items foydalanuvchi buyurtma qilmoqchi bo'lgan mahsulotlar
         cart_text = f"<b>🛒 **{globals.AT_KORZINKA[lang_id]}** 🛒</b> \n\n"
         total_price = 0
 
