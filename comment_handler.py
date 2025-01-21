@@ -1,6 +1,7 @@
 from buttons import main_menu
 from config import ADMIN
 from fastfood_db import Database
+
 db = Database()
 import globals
 
@@ -11,9 +12,7 @@ async def handle_user_message(update, context):
     chat_id = update.message.from_user.id
     db_user = db.get_user_by_chat_id(chat_id)
     lang_id = db_user['lang_id']
-    print(db_user)
     user_message = update.message.text
-    print(user_message)
 
     # Agar foydalanuvchi fikr rejimida bo'lsa
     if context.user_data.get('awaiting_feedback'):
@@ -31,7 +30,7 @@ async def handle_user_message(update, context):
         )
         # Rejimni o'chirish
         context.user_data['awaiting_feedback'] = False
-        await main_menu(context=context,chat_id=chat_id,lang_id=lang_id)
+        await main_menu(context=context, chat_id=chat_id, lang_id=lang_id)
     else:
         # Agar boshqa maqsadda yozilgan bo'lsa
         await context.bot.send_message(

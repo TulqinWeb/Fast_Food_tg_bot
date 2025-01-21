@@ -5,6 +5,7 @@ from fastfood_db import Database
 
 db = Database()
 
+
 # Savatdagi mahsulotlarni ko'rish uchun!
 async def view_cart(context, chat_id, lang_id, user_items, message_id):
     if user_items:  # user_items foydalanuvchi buyurtma qilmoqchi bo'lgan mahsulotlar
@@ -22,7 +23,6 @@ async def view_cart(context, chat_id, lang_id, user_items, message_id):
             total_item_price = item_price * item_quantity
             total_price += item_quantity * item_price
 
-
             # Mahsulotni tartib raqami bilan qo'shish
             cart_text += (
                 f"{number_emoji} <b>**{item_name}**</b>\n"
@@ -34,7 +34,6 @@ async def view_cart(context, chat_id, lang_id, user_items, message_id):
         cart_text += f"<b>🧾 {globals.TOTAL_COST[lang_id]} {total_price:,} {globals.SUM[lang_id]}</b>"
 
         context.user_data['total_price'] = total_price
-        print(context.user_data['total_price'])
 
         buttons = [
             [InlineKeyboardButton(text=globals.ORDER[lang_id], callback_data='order')],

@@ -14,7 +14,6 @@ async def message_handler(update, context):
     user = update.message.from_user
     db_user = db.get_user_by_chat_id(user.id)
     lang_id = db_user['lang_id']
-    print(db_user['id'])
     context.user_data['db_user_id'] = db_user['id']
 
     # Boshqa xabarlar uchun umumiy handler
@@ -63,6 +62,9 @@ async def message_handler(update, context):
             reply_markup=ReplyKeyboardRemove()
         )
         context.user_data['awaiting_feedback'] = True  # Fikr kutayotgan rejimni belgilash
+
+    else:
+        await context.bot.send_message(chat_id=user.id, text=globals.ELSE[lang_id])
 
 
 

@@ -6,7 +6,6 @@ import globals
 
 async def product_inf(context, chat_id, lang_id, product, image_path, message_id):
     current_quantity = 1
-    print(product['id'])
     context.user_data['product_id'] = product['id']
     context.user_data[f'quantity_{product['id']}'] = current_quantity
 

@@ -11,16 +11,13 @@ async def handle_quantity(update, context):
     lang_id = db_user['lang_id']
 
     query = update.callback_query
-    print(query.data)
     product_id = context.user_data.get('product_id')
 
     # Avvalgi miqdorni olish
     current_quantity = context.user_data.get(f'quantity_{product_id}', 1)
-    print(current_quantity)
 
     if query.data == 'increase':
         current_quantity += 1
-        print(current_quantity)
     elif query.data == 'decrease':
         if current_quantity > 1:
             current_quantity -= 1
@@ -28,7 +25,6 @@ async def handle_quantity(update, context):
             await query.answer(globals.NOTICE[lang_id], show_alert=True)
 
     context.user_data[f'quantity_{product_id}'] = current_quantity
-    print(current_quantity)
 
     buttons = [
         [

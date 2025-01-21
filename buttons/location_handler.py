@@ -1,8 +1,10 @@
 from telegram import ReplyKeyboardRemove
 from fastfood_db import Database
+
 db = Database()
 from admin import send_admin_message
 import globals
+
 
 async def location_handler(update, context):
     chat_id = update.message.from_user.id
@@ -21,7 +23,7 @@ async def location_handler(update, context):
                                        reply_markup=ReplyKeyboardRemove(),
                                        parse_mode="HTML")
 
-        await send_admin_message(context=context, latitude=latitude,longitude=longitude)
+        await send_admin_message(context=context, latitude=latitude, longitude=longitude)
 
     else:
         print("xatolik")

@@ -275,3 +275,8 @@ COMMENT_WARNING = {
     1: "Siz hozir fikr bildirish rejimida emassiz. Iltimos, fikr tugmasini bosing.",
     2: "Вы сейчас не в режиме отправки отзыва. Пожалуйста, нажмите кнопку «Оставить отзыв»."
 }
+
+ELSE = {
+    1: "/start buyrug'i orqali botni qayta ishga tushuring!",
+    2: "Перезапустите бота командой /start!"
+}
