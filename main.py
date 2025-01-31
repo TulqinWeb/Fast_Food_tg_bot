@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, \
     CallbackQueryHandler
 
+from admin_message_handler import admin_message_handler
 from buttons import location_handler
 from buttons.handle_quantity import handle_quantity
 from buttons.inline_handler import inline_handler
@@ -24,7 +25,7 @@ logging.basicConfig(
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
-from config import BOT_TOKEN  # telegram bot token
+from config import BOT_TOKEN, ADMIN  # telegram bot token
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -47,15 +48,24 @@ def cov_handler() -> ConversationHandler:
 def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
+    # Mavjud handlerlar
     app.add_handler(cov_handler())
-    app.add_handler(MessageHandler(filters.LOCATION, location_handler))
-    app.add_handler(MessageHandler(filters.TEXT, message_handler))
     app.add_handler(CallbackQueryHandler(handle_quantity, pattern='^(increase|decrease)$'))
     app.add_handler(CallbackQueryHandler(inline_handler))
+    app.add_handler(MessageHandler(filters.LOCATION, location_handler))
+    # Umumiy message_handler (oxirgi qo'shiladi)
+    app.add_handler(MessageHandler(filters.TEXT, message_handler))
 
-    app.add_handler(MessageHandler(filters.TEXT, handle_user_message))
+    # # Yangi qo'shilgan handlerlar (avval admin va foydalanuvchi handlerlari)
+    # app.add_handler(MessageHandler(filters.TEXT & ~filters.User(ADMIN), handle_user_message))   # Foydalanuvchi xabarlari
+    # app.add_handler(MessageHandler(filters.TEXT & filters.User(ADMIN), admin_message_handler))  # Admin xabarlari
+
+
+
+
     app.run_polling()
 
 
 if __name__ == '__main__':
     main()
+

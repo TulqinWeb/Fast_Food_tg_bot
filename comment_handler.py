@@ -1,3 +1,5 @@
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+
 from buttons import main_menu
 from config import ADMIN
 from fastfood_db import Database
@@ -7,21 +9,27 @@ import globals
 
 
 async def handle_user_message(update, context):
+    print("handle_user_message funksiyasi ishladi!")
     admin = db.get_user_by_chat_id(ADMIN)
     admin_lang_id = admin['lang_id']
     chat_id = update.message.from_user.id
     db_user = db.get_user_by_chat_id(chat_id)
     lang_id = db_user['lang_id']
     user_message = update.message.text
+    print(update.message.message_id)
 
     # Agar foydalanuvchi fikr rejimida bo'lsa
     if context.user_data.get('awaiting_feedback'):
+
         # Adminga fikrni yuborish
         await context.bot.send_message(
             chat_id=ADMIN,
             text=f"{globals.NEW_COMMENT[admin_lang_id]}\n\n"
                  f"{globals.USER[admin_lang_id]} {db_user['first_name']} {db_user['last_name']}\n"
-                 f"{globals.COMMENT[admin_lang_id]} {user_message}"
+                 f"{globals.COMMENT[admin_lang_id]} {user_message}",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton(text="Javob qaytarish", callback_data=f"reply: {chat_id} : {update.message.message_id}")]
+            ])
         )
         # Foydalanuvchiga tasdiq xabarini yuborish
         await context.bot.send_message(

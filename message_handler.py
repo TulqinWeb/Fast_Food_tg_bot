@@ -1,5 +1,6 @@
 from telegram import ReplyKeyboardRemove, Message, KeyboardButton, ReplyKeyboardMarkup
 
+from admin_message_handler import admin_message_handler
 from buttons.categories import all_categories
 from buttons.main_menu import main_menu
 from comment_handler import handle_user_message
@@ -56,6 +57,7 @@ async def message_handler(update, context):
         await main_menu(context=context, chat_id=user.id, lang_id=lang_id)
 
     elif text == globals.BTN_COMMENTS[lang_id]:
+
         await context.bot.send_message(
             chat_id=user.id,
             text=globals.SEND_COMMENT[lang_id],
@@ -63,8 +65,15 @@ async def message_handler(update, context):
         )
         context.user_data['awaiting_feedback'] = True  # Fikr kutayotgan rejimni belgilash
 
-    else:
-        await context.bot.send_message(chat_id=user.id, text=globals.ELSE[lang_id])
+    elif context.user_data.get('admin_awaiting_feedback'):
+        admin_message = update.message.text
+        user_chat_id = user.id
+        user_message_id = context.user_data.get('reply_message_id')
+
+        await admin_message_handler(update=update,context=context,user_chat_id=user_chat_id,user_message_id=user_message_id,admin_message=admin_message)
+
+    # else:
+    #     await context.bot.send_message(chat_id=user.id, text=globals.ELSE[lang_id])
 
 
 
