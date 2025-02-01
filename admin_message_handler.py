@@ -1,12 +1,6 @@
-async def admin_message_handler(update, context,user_chat_id,user_message_id,admin_message):
-
-    print(admin_message)
-    print(type(user_message_id))
-    print(user_chat_id)
-
+async def admin_message_handler(update, context, user_chat_id, user_message_id, admin_message):
     if user_chat_id and user_message_id:
-        print(user_chat_id)
-        print(user_message_id)
+
         try:
             # Foydalanuvchiga javob yuborish
             await context.bot.send_message(

@@ -67,7 +67,7 @@ async def message_handler(update, context):
 
     elif context.user_data.get('admin_awaiting_feedback'):
         admin_message = update.message.text
-        user_chat_id = user.id
+        user_chat_id = context.user_data.get('reply_chat_id')
         user_message_id = context.user_data.get('reply_message_id')
 
         await admin_message_handler(update=update,context=context,user_chat_id=user_chat_id,user_message_id=user_message_id,admin_message=admin_message)

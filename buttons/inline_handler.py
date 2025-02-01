@@ -129,16 +129,19 @@ async def inline_handler(update, context):
 
     elif query.data.startswith('reply:'):
         data_sp = query.data.split(':')
+        user_chat_id = data_sp[1].strip()
         user_message_id = data_sp[2].strip()
 
         # user_chat_id va user_message_id ni int ga o'zgartirish
         try:
+            user_chat_id = int(user_chat_id)
             user_message_id = int(user_message_id)
         except ValueError as e:
             await query.message.reply_text(f"Xatolik: {e}")
             return
 
         context.user_data['reply_message_id'] = user_message_id
+        context.user_data['reply_chat_id'] = user_chat_id
 
         await query.message.reply_text('Foydalanuvchiga javob yozing:')
         context.user_data['admin_awaiting_feedback'] = True
