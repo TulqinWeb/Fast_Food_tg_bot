@@ -280,3 +280,13 @@ ELSE = {
     1: "/start buyrug'i orqali botni qayta ishga tushuring!",
     2: "Перезапустите бота командой /start!"
 }
+
+REPLY = {
+    1: "Javob qaytarish",
+    2: "Ответить"
+}
+
+ADMIN_CONFIRM_MESSAGE = {
+    1: "Javobingiz foydalanuvchiga yuborildi!",
+    2: "Ваш ответ был отправлен пользователю!"
+}

@@ -1,4 +1,11 @@
+import globals
+from fastfood_db import Database
+db = Database()
+from config import ADMIN
+
 async def admin_message_handler(update, context, user_chat_id, user_message_id, admin_message):
+    lang_id = db.get_user_by_chat_id(ADMIN)['lang_id']
+
     if user_chat_id and user_message_id:
 
         try:
@@ -9,7 +16,7 @@ async def admin_message_handler(update, context, user_chat_id, user_message_id, 
                 reply_to_message_id=user_message_id
             )
             # Adminga tasdiq xabarini yuborish
-            await update.message.reply_text("Javobingiz foydalanuvchiga yuborildi!")
+            await update.message.reply_text(text=globals.ADMIN_CONFIRM_MESSAGE[lang_id])
         except Exception as e:
             # Agar xatolik yuzaga kelsa, adminga xabar berish
             await update.message.reply_text(f"Xatolik yuz berdi: {e}")

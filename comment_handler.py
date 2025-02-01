@@ -9,7 +9,6 @@ import globals
 
 
 async def handle_user_message(update, context):
-    print("handle_user_message funksiyasi ishladi!")
     admin = db.get_user_by_chat_id(ADMIN)
     admin_lang_id = admin['lang_id']
     chat_id = update.message.from_user.id
@@ -28,7 +27,8 @@ async def handle_user_message(update, context):
                  f"{globals.USER[admin_lang_id]} {db_user['first_name']} {db_user['last_name']}\n"
                  f"{globals.COMMENT[admin_lang_id]} {user_message}",
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton(text="Javob qaytarish", callback_data=f"reply: {chat_id} : {update.message.message_id}")]
+                [InlineKeyboardButton(text=globals.REPLY[admin_lang_id],
+                                      callback_data=f"reply: {chat_id} : {update.message.message_id}")]
             ])
         )
         # Foydalanuvchiga tasdiq xabarini yuborish

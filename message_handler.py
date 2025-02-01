@@ -72,8 +72,6 @@ async def message_handler(update, context):
 
         await admin_message_handler(update=update,context=context,user_chat_id=user_chat_id,user_message_id=user_message_id,admin_message=admin_message)
 
-    # else:
-    #     await context.bot.send_message(chat_id=user.id, text=globals.ELSE[lang_id])
 
 
 
