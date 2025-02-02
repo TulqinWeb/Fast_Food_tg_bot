@@ -6,6 +6,7 @@ from buttons.main_menu import main_menu
 from comment_handler import handle_user_message
 from fastfood_db import Database
 import globals
+from user_orders import show_user_orders
 
 db = Database()
 
@@ -70,7 +71,13 @@ async def message_handler(update, context):
         user_chat_id = context.user_data.get('reply_chat_id')
         user_message_id = context.user_data.get('reply_message_id')
 
-        await admin_message_handler(update=update,context=context,user_chat_id=user_chat_id,user_message_id=user_message_id,admin_message=admin_message)
+        await admin_message_handler(update=update,context=context,
+                                    user_chat_id=user_chat_id,
+                                    user_message_id=user_message_id,
+                                    admin_message=admin_message)
+
+    elif text == globals.BTN_MY_ORDERS[lang_id]:
+        await show_user_orders(update=update,context=context, lang_id=lang_id)
 
 
 

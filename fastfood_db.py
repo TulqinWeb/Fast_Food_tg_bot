@@ -218,6 +218,51 @@ class Database:
         user_order_products = dict_fetchone(self.cursor)
         return user_order_products
 
+    def get_user_orders(self, user_id, limit=5,lang_id=1):
+        # Tilga qarab ustun nomini tanlash
+        product_name_column = "name_uz" if lang_id == 1 else "name_ru"
+
+        query = f"""
+            SELECT 
+                o.id AS order_id,
+                o.total_price,
+                o.created_at AS order_date,
+                op.product_id,
+                p.{product_name_column} AS product_name,
+                op.quantity
+            FROM 
+                orders o
+            JOIN 
+                order_products op ON o.id = op.order_id
+            JOIN 
+                products p ON op.product_id = p.id
+            WHERE 
+                o.user_id = %s
+            ORDER BY 
+                o.created_at DESC
+            LIMIT %s;
+        """
+        self.cursor.execute(query, (user_id, limit))
+        rows = self.cursor.fetchall()
+
+        # Buyurtmalarni guruhlash
+        orders = {}
+        for row in rows:
+            order_id = row[0]  # order_id
+            if order_id not in orders:
+                orders[order_id] = {
+                    'id': order_id,
+                    'price': row[1],  # total_price
+                    'date': row[2].strftime("%Y-%m-%d %H:%M:%S"),  # order_date
+                    'products': []
+                }
+            orders[order_id]['products'].append({
+                'name': row[4],  # product_name (name_uz yoki name_ru)
+                'quantity': row[5]  # quantity
+            })
+
+        return list(orders.values())
+
 
 def dict_fetchall(cursor):
     columns = [col[0] for col in cursor.description]
