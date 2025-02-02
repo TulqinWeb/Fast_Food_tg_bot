@@ -218,7 +218,7 @@ class Database:
         user_order_products = dict_fetchone(self.cursor)
         return user_order_products
 
-    def get_user_orders(self, user_id, limit=5,lang_id=1):
+    def get_user_orders(self, user_id, limit=7,lang_id=1):
         # Tilga qarab ustun nomini tanlash
         product_name_column = "name_uz" if lang_id == 1 else "name_ru"
 

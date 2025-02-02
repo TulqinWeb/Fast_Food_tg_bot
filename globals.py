@@ -193,12 +193,12 @@ ORDER_TOTAL_COST = {
 
 ORDER_TIME = {
     1: "📅 Buyurtma vaqti:",
-    2: "📅Время заказа:"
+    2: "📅 Время заказа:"
 }
 
 ORDER_CONTENT = {
-    1: "📦 Buyurtma tarkibi:",
-    2: "📦 Содержание заказа:"
+    1: "🍔 Buyurtma tarkibi:",
+    2: "🍔 Содержание заказа:"
 }
 
 ORDER_THANKS = {
@@ -289,4 +289,14 @@ REPLY = {
 ADMIN_CONFIRM_MESSAGE = {
     1: "Javobingiz foydalanuvchiga yuborildi!",
     2: "Ваш ответ был отправлен пользователю!"
+}
+
+LAST_ORDERS = {
+    1: "📝 Sizning oxirgi buyurtmalaringiz:",
+    2: "📝 Ваши последние заказы:"
+}
+
+NO_ORDERS = {
+    1: "🚫 Sizda hali buyurtma mavjud emas!",
+    2: "🚫 У вас пока нет заказов!"
 }
