@@ -12,8 +12,9 @@ async def admin_message_handler(update, context, user_chat_id, user_message_id, 
             # Foydalanuvchiga javob yuborish
             await context.bot.send_message(
                 chat_id=user_chat_id,
-                text=f"Admin javobi:\n\n{admin_message}",
-                reply_to_message_id=user_message_id
+                text=f"<b>{globals.ADMIN_ANSWER[lang_id]}</b>\n\n{admin_message}",
+                reply_to_message_id=user_message_id,
+                parse_mode="HTML"
             )
             # Adminga tasdiq xabarini yuborish
             await update.message.reply_text(text=globals.ADMIN_CONFIRM_MESSAGE[lang_id])

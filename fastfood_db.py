@@ -263,6 +263,13 @@ class Database:
 
         return list(orders.values())
 
+    def cleanup_old_cart_items(self):
+        self.cursor.execute("""
+            DELETE FROM order_products
+            WHERE order_id IS NULL
+            AND created_at < NOW() - INTERVAL '3 hours';""")
+        self.conn.commit()
+
 
 def dict_fetchall(cursor):
     columns = [col[0] for col in cursor.description]
